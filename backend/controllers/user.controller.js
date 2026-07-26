@@ -132,11 +132,11 @@ export const updateUser = async (req, res) => {
 			coverImg = uploadedResponse.secure_url;
 		}
 
-		user.fullName = fullName || user.fullName;
-		user.email = email || user.email;
-		user.username = username || user.username;
-		user.bio = bio || user.bio;
-		user.link = link || user.link;
+		user.fullName = fullName !== undefined ? fullName : user.fullName;
+		user.email = email !== undefined ? email : user.email;
+		user.username = username !== undefined ? username : user.username;
+		user.bio = bio !== undefined ? bio : user.bio;
+		user.link = link !== undefined ? link : user.link;
 		user.profileImg = profileImg || user.profileImg;
 		user.coverImg = coverImg || user.coverImg;
 

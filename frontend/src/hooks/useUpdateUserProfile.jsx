@@ -16,7 +16,8 @@ const useUpdateUserProfile = () => {
 				});
 				const data = await res.json();
 				if (!res.ok) {
-					throw new Error(data.error || "Something went wrong");
+					const errorMessage = data.error || (data.errors && data.errors[0]?.message) || "Something went wrong";
+					throw new Error(errorMessage);
 				}
 				return data;
 			} catch (error) {
