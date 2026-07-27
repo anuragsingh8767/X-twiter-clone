@@ -17,7 +17,7 @@ const router = express.Router();
 
 const createPostValidation = [
 	body("text").optional().isString().isLength({ max: 280 }).withMessage("Text must be max 280 characters"),
-	body("img").optional().isString().withMessage("Image must be a valid string URL or base64 string"),
+	body("img").optional({values:"null"}).isString().withMessage("Image must be a valid string URL or base64 string"),
 ];
 
 const idValidation = [

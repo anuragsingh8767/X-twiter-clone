@@ -27,6 +27,7 @@ cloudinary.config({
 });
 
 const app = express();
+app.set("trust proxy", 1);
 const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:3000").split(",");
@@ -36,7 +37,7 @@ const apiLimiter = rateLimit({
 	standardHeaders: true,
 });
 app.disable("x-powered-by");
-app.use(helmet());
+app.use(helmet({contentSecurityPolicy: false,}));
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json({ limit: "5mb" })); // to parse req.body
 // limit shouldn't be too high to prevent DOS
@@ -49,14 +50,14 @@ app.use("/api/posts", apiLimiter, postRoutes);
 app.use("/api/notifications", apiLimiter, notificationRoutes);
 
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "/frontend/dist")));
+	app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+		res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 	});
 }
 export default app;
-
+/*
 if (process.env.NODE_ENV !== 'production') {
 	app.listen(PORT, () => {
 		console.log(`Server is running on port ${PORT}`);
@@ -65,3 +66,10 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
 	connectMongoDB();
 }
+*/
+
+connectMongoDB();
+
+app.listen(PORT, () => {
+	console.log(`Server is running on port ${PORT}`);
+});

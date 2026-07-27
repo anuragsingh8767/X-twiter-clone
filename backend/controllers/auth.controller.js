@@ -59,7 +59,8 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-	try {
+	console.log("LOGIN ENDPOINT HIT");
+try {
 		const { username, password } = req.body;
 		const user = await User.findOne({ username });
 		const isPasswordCorrect = await bcrypt.compare(password, user?.password || "");
