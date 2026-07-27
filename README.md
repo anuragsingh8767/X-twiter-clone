@@ -24,6 +24,6 @@ Backend: Node.js, Express.js
 
 Database: MongoDB, Mongoose
 
-Authentication: JWT (JSON Web Tokens)
+Authentication: JWT (JSON Web Tokens).
 
 Real-Time: Socket.io
