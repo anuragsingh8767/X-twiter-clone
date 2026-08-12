@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { v2 as cloudinary } from "cloudinary";
+import { saveImage, deleteImage } from "../lib/utils/saveImage.js";
 
 // models
 import Notification from "../models/notification.model.js";
@@ -115,21 +115,16 @@ export const updateUser = async (req, res) => {
 
 		if (profileImg) {
 			if (user.profileImg) {
-				// https://res.cloudinary.com/dyfqon1v6/image/upload/v1712997552/zmxorcxexpdbh8r0bkjb.png
-				await cloudinary.uploader.destroy(user.profileImg.split("/").pop().split(".")[0]);
+				deleteImage(user.profileImg);
 			}
-
-			const uploadedResponse = await cloudinary.uploader.upload(profileImg);
-			profileImg = uploadedResponse.secure_url;
+			profileImg = saveImage(profileImg);
 		}
 
 		if (coverImg) {
 			if (user.coverImg) {
-				await cloudinary.uploader.destroy(user.coverImg.split("/").pop().split(".")[0]);
+				deleteImage(user.coverImg);
 			}
-
-			const uploadedResponse = await cloudinary.uploader.upload(coverImg);
-			coverImg = uploadedResponse.secure_url;
+			coverImg = saveImage(coverImg);
 		}
 
 		user.fullName = fullName !== undefined ? fullName : user.fullName;

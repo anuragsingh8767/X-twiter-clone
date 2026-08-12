@@ -1,7 +1,7 @@
 import Notification from "../models/notification.model.js";
 import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
-import { v2 as cloudinary } from "cloudinary";
+import { saveImage, deleteImage } from "../lib/utils/saveImage.js";
 
 export const createPost = async (req, res) => {
 	try {
@@ -17,8 +17,7 @@ export const createPost = async (req, res) => {
 		}
 
 		if (img) {
-			const uploadedResponse = await cloudinary.uploader.upload(img);
-			img = uploadedResponse.secure_url;
+			img = saveImage(img);
 		}
 
 		const newPost = new Post({
@@ -47,8 +46,7 @@ export const deletePost = async (req, res) => {
 		}
 
 		if (post.img) {
-			const imgId = post.img.split("/").pop().split(".")[0];
-			await cloudinary.uploader.destroy(imgId);
+			deleteImage(post.img);
 		}
 
 		await Post.findByIdAndDelete(req.params.id);

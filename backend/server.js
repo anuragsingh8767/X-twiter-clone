@@ -5,7 +5,6 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
-import { v2 as cloudinary } from "cloudinary";
 import { fileURLToPath } from 'url';
 
 import authRoutes from "./routes/auth.route.js";
@@ -20,11 +19,8 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-cloudinary.config({
-	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-	api_key: process.env.CLOUDINARY_API_KEY,
-	api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+// Uploaded images are stored locally and served as static files
+const UPLOADS_DIR = path.resolve(__dirname, "../../uploads");
 
 const app = express();
 app.set("trust proxy", 1);
@@ -44,6 +40,7 @@ app.use(express.json({ limit: "5mb" })); // to parse req.body
 app.use(express.urlencoded({ extended: true, limit: "5mb" })); // to parse form data(urlencoded)
 
 app.use(cookieParser());
+app.use("/uploads", express.static(UPLOADS_DIR));
 app.use("/api/auth", authRoutes);
 app.use("/api/users", apiLimiter, userRoutes);
 app.use("/api/posts", apiLimiter, postRoutes);
