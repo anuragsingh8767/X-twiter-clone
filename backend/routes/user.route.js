@@ -2,7 +2,7 @@ import express from "express";
 import { body, param } from "express-validator";
 import { protectRoute } from "../middleware/protectRoute.js";
 import { validateRequest } from "../middleware/validateRequest.js";
-import { followUnfollowUser, getSuggestedUsers, getUserProfile, updateUser } from "../controllers/user.controller.js";
+import { followUnfollowUser, getSuggestedUsers, getUserProfile, updateUser, getFollowersList, getFollowingList } from "../controllers/user.controller.js";
 
 const router = express.Router();
 
@@ -19,6 +19,8 @@ const updateValidation = [
 
 router.get("/profile/:username", protectRoute, getUserProfile);
 router.get("/suggested", protectRoute, getSuggestedUsers);
+router.get("/followers/:username", protectRoute, getFollowersList);
+router.get("/following/:username", protectRoute, getFollowingList);
 router.post("/follow/:id", protectRoute, followValidation, validateRequest, followUnfollowUser);
 router.post("/update", protectRoute, updateValidation, validateRequest, updateUser);
 

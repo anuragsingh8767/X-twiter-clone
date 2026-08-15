@@ -88,6 +88,8 @@ export const getSuggestedUsers = async (req, res) => {
 	}
 };
 
+
+
 export const updateUser = async (req, res) => {
 	const { fullName, email, username, currentPassword, newPassword, bio, link } = req.body;
 	let { profileImg, coverImg } = req.body;
@@ -148,6 +150,42 @@ export const updateUser = async (req, res) => {
 		return res.status(200).json(user);
 	} catch (error) {
 		console.log("Error in updateUser: ", error.message);
+		res.status(500).json({ error: error.message });
+	}
+};
+
+export const getFollowersList = async (req, res) => {
+	const { username } = req.params;
+
+	try {
+		const user = await User.findOne({ username }).populate({
+			path: "followers",
+			select: "-password",
+		});
+
+		if (!user) return res.status(404).json({ message: "User not found" });
+
+		res.status(200).json(user.followers);
+	} catch (error) {
+		console.log("Error in getFollowersList: ", error.message);
+		res.status(500).json({ error: error.message });
+	}
+};
+
+export const getFollowingList = async (req, res) => {
+	const { username } = req.params;
+
+	try {
+		const user = await User.findOne({ username }).populate({
+			path: "following",
+			select: "-password",
+		});
+
+		if (!user) return res.status(404).json({ message: "User not found" });
+
+		res.status(200).json(user.following);
+	} catch (error) {
+		console.log("Error in getFollowingList: ", error.message);
 		res.status(500).json({ error: error.message });
 	}
 };

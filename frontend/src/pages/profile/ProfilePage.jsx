@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import Posts from "../../components/common/Posts";
 import ProfileHeaderSkeleton from "../../components/skeletons/ProfileHeaderSkeleton";
 import EditProfileModal from "./EditProfileModal";
+import FollowersFollowingModal from "../../components/common/FollowersFollowingModal";
 
 import { POSTS } from "../../utils/db/dummy";
 
@@ -192,11 +193,17 @@ const ProfilePage = () => {
 									</div>
 								</div>
 								<div className='flex gap-2'>
-									<div className='flex gap-1 items-center'>
+									<div 
+										className='flex gap-1 items-center cursor-pointer hover:text-primary transition'
+										onClick={() => document.getElementById("following_modal").showModal()}
+									>
 										<span className='font-bold text-xs'>{user?.following.length}</span>
 										<span className='text-slate-500 text-xs'>Following</span>
 									</div>
-									<div className='flex gap-1 items-center'>
+									<div 
+										className='flex gap-1 items-center cursor-pointer hover:text-primary transition'
+										onClick={() => document.getElementById("followers_modal").showModal()}
+									>
 										<span className='font-bold text-xs'>{user?.followers.length}</span>
 										<span className='text-slate-500 text-xs'>Followers</span>
 									</div>
@@ -228,6 +235,18 @@ const ProfilePage = () => {
 					<Posts feedType={feedType} username={username} userId={user?._id} />
 				</div>
 			</div>
+
+			{/* Modals */}
+			<FollowersFollowingModal 
+				username={username} 
+				modalId="followers_modal" 
+				listType="followers" 
+			/>
+			<FollowersFollowingModal 
+				username={username} 
+				modalId="following_modal" 
+				listType="following" 
+			/>
 		</>
 	);
 };
