@@ -27,10 +27,16 @@
 		"express-validator": "^7.3.2",
 		"helmet": "^8.3.0",
 		"jsonwebtoken": "^9.0.2",
-		"mongoose": "^8.3.1"
+		"mongoose": "^8.3.1",
+		"socket.io": "^4.8.3",
+		"socket.io-client": "^4.8.3"
 	},
 	"devDependencies": {
 		"cross-env": "^7.0.3",
 		"nodemon": "^3.1.0"
+	},
+	"optionalDependencies": {
+		"bufferutil": "^4.1.0",
+		"utf-8-validate": "^6.0.6"
 	}
 }

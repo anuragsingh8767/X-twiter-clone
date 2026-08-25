@@ -140,14 +140,14 @@ const ProfilePage = () => {
 							<div className='flex justify-end px-4 mt-5'>
 								{isMyProfile && <EditProfileModal authUser={authUser} />}
 								{!isMyProfile && (
-									<button
-										className='btn btn-outline rounded-full btn-sm'
-										onClick={() => follow(user?._id)}
-									>
-										{isPending && "Loading..."}
-										{!isPending && amIFollowing && "Unfollow"}
-										{!isPending && !amIFollowing && "Follow"}
-									</button>
+									<div className='flex gap-2'>
+										<Link to={`/messages/${user?.username}`} className='btn btn-outline rounded-full btn-sm'>Message</Link>
+										<button className='btn btn-outline rounded-full btn-sm' onClick={() => follow(user?._id)}>
+											{isPending && "Loading..."}
+											{!isPending && amIFollowing && "Unfollow"}
+											{!isPending && !amIFollowing && "Follow"}
+										</button>
+									</div>
 								)}
 								{(coverImg || profileImg) && (
 									<button
