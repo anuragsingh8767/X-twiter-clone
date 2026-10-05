@@ -5,8 +5,8 @@
 	"description": "",
 	"main": "backend/server.js",
 	"scripts": {
-		"dev": "cross-env NODE_ENV=development nodemon backend/server.js",
-		"start": "cross-env NODE_ENV=production node backend/server.js",
+		"dev": "cross-env NODE_ENV=development nodemon --exec node --require ./backend/node-compat.cjs backend/server.js",
+		"start": "cross-env NODE_ENV=production node --require ./backend/node-compat.cjs backend/server.js",
 		"build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
 	},
 	"workspaces": [
