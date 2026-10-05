@@ -41,7 +41,7 @@ const EditProfileModal = ({ authUser }) => {
 				Edit profile
 			</button>
 			<dialog id='edit_profile_modal' className='modal'>
-				<div className='modal-box border rounded-md border-gray-700 shadow-md'>
+				<div className='modal-box max-h-[90dvh] w-[calc(100%-1rem)] max-w-lg overflow-y-auto rounded-md border border-gray-700 shadow-md'>
 					<h3 className='font-bold text-lg my-3'>Update Profile</h3>
 					<form
 						className='flex flex-col gap-4'
@@ -50,7 +50,7 @@ const EditProfileModal = ({ authUser }) => {
 							updateProfile(formData);
 						}}
 					>
-						<div className='flex flex-wrap gap-2'>
+						<div className='flex flex-col gap-2 sm:flex-row'>
 							<input
 								type='text'
 								placeholder='Full Name'
@@ -68,7 +68,7 @@ const EditProfileModal = ({ authUser }) => {
 								onChange={handleInputChange}
 							/>
 						</div>
-						<div className='flex flex-wrap gap-2'>
+						<div className='flex flex-col gap-2 sm:flex-row'>
 							<input
 								type='email'
 								placeholder='Email'
@@ -85,7 +85,7 @@ const EditProfileModal = ({ authUser }) => {
 								onChange={handleInputChange}
 							/>
 						</div>
-						<div className='flex flex-wrap gap-2'>
+						<div className='flex flex-col gap-2 sm:flex-row'>
 							<input
 								type='password'
 								placeholder='Current Password'

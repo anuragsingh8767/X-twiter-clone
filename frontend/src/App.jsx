@@ -44,7 +44,7 @@ function App() {
 	}
 
 	return (
-		<div className='flex max-w-6xl mx-auto'>
+		<div className='flex min-h-screen w-full max-w-6xl mx-auto'>
 			{/* Common component, bc it's not wrapped with Routes */}
 			{authUser && <Sidebar />}
 			<Routes>

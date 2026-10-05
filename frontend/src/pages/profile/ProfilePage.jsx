@@ -76,14 +76,14 @@ const ProfilePage = () => {
 
 	return (
 		<>
-			<div className='flex-[4_4_0]  border-r border-gray-700 min-h-screen '>
+			<div className='min-w-0 w-full flex-[4_4_0] border-r border-gray-700 min-h-screen pb-16 md:pb-0'>
 				{/* HEADER */}
 				{(isLoading || isRefetching) && <ProfileHeaderSkeleton />}
 				{!isLoading && !isRefetching && !user && <p className='text-center text-lg mt-4'>User not found</p>}
 				<div className='flex flex-col'>
 					{!isLoading && !isRefetching && user && (
 						<>
-							<div className='flex gap-10 px-4 py-2 items-center'>
+							<div className='flex items-center gap-4 px-4 py-2 sm:gap-10'>
 								<Link to='/'>
 									<FaArrowLeft className='w-4 h-4' />
 								</Link>
@@ -96,12 +96,12 @@ const ProfilePage = () => {
 							<div className='relative group/cover'>
 								<img
 									src={coverImg || user?.coverImg || "/cover.png"}
-									className='h-52 w-full object-cover'
+									className='h-36 w-full object-cover sm:h-52'
 									alt='cover image'
 								/>
 								{isMyProfile && (
 									<div
-										className='absolute top-2 right-2 rounded-full p-2 bg-gray-800 bg-opacity-75 cursor-pointer opacity-0 group-hover/cover:opacity-100 transition duration-200'
+										className='absolute top-2 right-2 rounded-full bg-gray-800 bg-opacity-75 p-2 opacity-100 transition duration-200 md:opacity-0 md:group-hover/cover:opacity-100'
 										onClick={() => coverImgRef.current.click()}
 									>
 										<MdEdit className='w-5 h-5 text-white' />
@@ -124,9 +124,9 @@ const ProfilePage = () => {
 								/>
 								{/* USER AVATAR */}
 								<div className='avatar absolute -bottom-16 left-4'>
-									<div className='w-32 rounded-full relative group/avatar'>
+									<div className='relative w-24 rounded-full group/avatar sm:w-32'>
 										<img src={profileImg || user?.profileImg || "/avatar-placeholder.png"} />
-										<div className='absolute top-5 right-3 p-1 bg-primary rounded-full group-hover/avatar:opacity-100 opacity-0 cursor-pointer'>
+										<div className='absolute top-5 right-3 cursor-pointer rounded-full bg-primary p-1 opacity-100 md:opacity-0 md:group-hover/avatar:opacity-100'>
 											{isMyProfile && (
 												<MdEdit
 													className='w-4 h-4 text-white'
@@ -137,10 +137,10 @@ const ProfilePage = () => {
 									</div>
 								</div>
 							</div>
-							<div className='flex justify-end px-4 mt-5'>
+							<div className='mt-5 flex flex-wrap justify-end gap-2 px-4'>
 								{isMyProfile && <EditProfileModal authUser={authUser} />}
 								{!isMyProfile && (
-									<div className='flex gap-2'>
+									<div className='flex flex-wrap gap-2'>
 										<Link to={`/messages/${user?.username}`} className='btn btn-outline rounded-full btn-sm'>Message</Link>
 										<button className='btn btn-outline rounded-full btn-sm' onClick={() => follow(user?._id)}>
 											{isPending && "Loading..."}
@@ -151,7 +151,7 @@ const ProfilePage = () => {
 								)}
 								{(coverImg || profileImg) && (
 									<button
-										className='btn btn-primary rounded-full btn-sm text-white px-4 ml-2'
+										className='btn btn-primary btn-sm rounded-full px-4 text-white'
 										onClick={async () => {
 											await updateProfile({ coverImg, profileImg });
 											setProfileImg(null);
@@ -172,14 +172,14 @@ const ProfilePage = () => {
 
 								<div className='flex gap-2 flex-wrap'>
 									{user?.link && (
-										<div className='flex gap-1 items-center '>
+										<div className='flex min-w-0 items-center gap-1'>
 											<>
 												<FaLink className='w-3 h-3 text-slate-500' />
 												<a
 													href='https://youtube.com/@asaprogrammer_'
 													target='_blank'
 													rel='noreferrer'
-													className='text-sm text-blue-500 hover:underline'
+													className='break-all text-sm text-blue-500 hover:underline'
 												>
 													{/* Updated this after recording the video. I forgot to update this while recording, sorry, thx. */}
 													{user?.link}

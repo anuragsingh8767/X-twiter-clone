@@ -31,7 +31,7 @@ const FollowersFollowingModal = ({ username, modalId, listType }) => {
 
 	return (
 		<dialog id={modalId} className='modal'>
-			<div className='modal-box border rounded-md border-gray-700 shadow-md w-full max-w-md'>
+			<div className='modal-box w-[calc(100%-1rem)] max-w-md overflow-y-auto rounded-md border border-gray-700 shadow-md'>
 				{/* Header */}
 				<div className='flex items-center gap-3 py-4 px-4 border-b border-gray-700 sticky top-0 bg-black bg-opacity-80 z-10'>
 					<button

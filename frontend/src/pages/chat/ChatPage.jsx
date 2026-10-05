@@ -77,8 +77,8 @@ const ChatPage = () => {
 	};
 
 	return (
-		<div className='flex-[4_4_0] border-r border-gray-700 min-h-screen flex'>
-			<aside className={`${showConversationList || !activeUser ? "block" : "hidden"} sm:block w-full sm:w-64 border-r border-gray-700`}>
+		<div className='flex min-h-[calc(100dvh-4rem)] min-w-0 w-full flex-[4_4_0] border-r border-gray-700 md:min-h-screen'>
+			<aside className={`${showConversationList || !activeUser ? "block" : "hidden"} md:block w-full shrink-0 border-r border-gray-700 md:w-64`}>
 				<div className='p-4 border-b border-gray-700 flex items-center gap-4'>
 					<Link to='/'><FaArrowLeft /></Link>
 					<h1 className='font-bold text-lg'>Messages</h1>
@@ -95,15 +95,15 @@ const ChatPage = () => {
 				})}
 			</aside>
 
-			<main className={`${activeUser && showConversationList ? "hidden sm:flex" : !activeUser ? "hidden sm:flex" : "flex"} flex-1 flex-col min-w-0`}>
+			<main className={`${activeUser && showConversationList ? "hidden md:flex" : !activeUser ? "hidden md:flex" : "flex"} min-w-0 flex-1 flex-col pb-16 md:pb-0`}>
 				{activeUser ? (
 					<>
-						<header className='p-4 border-b border-gray-700 flex items-center gap-3'>
-							<button type='button' aria-label='Back to conversations' className='sm:hidden' onClick={() => setShowConversationList(true)}><FaArrowLeft /></button>
+						<header className='flex items-center gap-3 border-b border-gray-700 p-3 sm:p-4'>
+							<button type='button' aria-label='Back to conversations' className='md:hidden' onClick={() => setShowConversationList(true)}><FaArrowLeft /></button>
 							<div className='avatar'><div className='w-9 rounded-full'><img src={activeUser.profileImg || "/avatar-placeholder.png"} alt='' /></div></div>
 							<div><p className='font-bold'>{activeUser.fullName}</p><p className='text-sm text-slate-500'>@{activeUser.username}</p></div>
 						</header>
-						<div className='flex-1 overflow-y-auto p-4 space-y-3'>
+						<div className='min-h-0 flex-1 space-y-3 overflow-y-auto p-3 sm:p-4'>
 							{messagesLoading && <LoadingSpinner />}
 							{!messagesLoading && messageData?.messages.length === 0 && <p className='text-center text-slate-500 mt-8'>No messages yet</p>}
 							{messageData?.messages.map((message) => (
@@ -112,8 +112,8 @@ const ChatPage = () => {
 								</div>
 							))}
 						</div>
-						<form onSubmit={handleSubmit} className='p-3 border-t border-gray-700 flex gap-2'>
-							<input value={draft} onChange={(event) => setDraft(event.target.value)} maxLength={2000} placeholder='Write a message...' className='input input-bordered flex-1' />
+						<form onSubmit={handleSubmit} className='flex gap-2 border-t border-gray-700 p-3'>
+							<input value={draft} onChange={(event) => setDraft(event.target.value)} maxLength={2000} placeholder='Write a message...' className='input input-bordered min-w-0 flex-1' />
 							<button type='submit' aria-label='Send message' className='btn btn-primary text-white'><FaPaperPlane /></button>
 						</form>
 					</>
