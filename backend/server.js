@@ -1,4 +1,5 @@
 import path from "path";
+import http from "http";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -12,6 +13,8 @@ import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
 import postRoutes from "./routes/post.route.js";
 import notificationRoutes from "./routes/notification.route.js";
+import chatRoutes from "./routes/chat.route.js";
+import { initializeSocket } from "./lib/socket.js";
 
 import connectMongoDB from "./db/connectMongoDB.js";
 
@@ -48,6 +51,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", apiLimiter, userRoutes);
 app.use("/api/posts", apiLimiter, postRoutes);
 app.use("/api/notifications", apiLimiter, notificationRoutes);
+app.use("/api/chats", apiLimiter, chatRoutes);
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "../frontend/dist")));
@@ -56,10 +60,13 @@ if (process.env.NODE_ENV === "production") {
 		res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 	});
 }
-export default app;
-
 connectMongoDB();
 
-app.listen(PORT, () => {
+const httpServer = http.createServer(app);
+initializeSocket(httpServer, allowedOrigins);
+
+export default app;
+
+httpServer.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
 });

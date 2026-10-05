@@ -131,12 +131,12 @@ const Post = ({ post }) => {
 						<img src={postOwner.profileImg || "/avatar-placeholder.png"} />
 					</Link>
 				</div>
-				<div className='flex flex-col flex-1'>
-					<div className='flex gap-2 items-center'>
+				<div className='flex min-w-0 flex-1 flex-col'>
+					<div className='flex min-w-0 flex-wrap items-center gap-x-2 gap-y-0.5'>
 						<Link to={`/profile/${postOwner.username}`} className='font-bold'>
 							{postOwner.fullName}
 						</Link>
-						<span className='text-gray-700 flex gap-1 text-sm'>
+						<span className='flex min-w-0 flex-wrap gap-1 text-sm text-gray-500'>
 							<Link to={`/profile/${postOwner.username}`}>@{postOwner.username}</Link>
 							<span>·</span>
 							<span>{formattedDate}</span>
@@ -152,11 +152,11 @@ const Post = ({ post }) => {
 						)}
 					</div>
 					<div className='flex flex-col gap-3 overflow-hidden'>
-						<span>{post.text}</span>
+						<span className='break-words whitespace-pre-wrap'>{post.text}</span>
 						{post.img && (
 							<img
 								src={post.img}
-								className='h-80 object-contain rounded-lg border border-gray-700'
+								className='max-h-80 w-full rounded-lg border border-gray-700 object-contain'
 								alt=''
 							/>
 						)}
@@ -204,7 +204,7 @@ const Post = ({ post }) => {
 										))}
 									</div>
 									<form
-										className='flex gap-2 items-center mt-4 border-t border-gray-600 pt-2'
+										className='mt-4 flex flex-col items-stretch gap-2 border-t border-gray-600 pt-2 sm:flex-row sm:items-center'
 										onSubmit={handlePostComment}
 									>
 										<textarea

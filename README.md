@@ -13,7 +13,9 @@ Interactivity: Users can like, comment, and share posts.
 
 Following System: Follow and unfollow other users to see their posts in your feed.
 
-Real-Time Updates: Real-time notifications and updates using WebSockets.
+Direct Messages: Send persistent one-to-one messages to other users.
+
+Real-Time Updates: New direct messages are delivered in real time using Socket.IO.
 
 Responsive Design: Optimized for both desktop and mobile devices.
 
@@ -26,4 +28,11 @@ Database: MongoDB, Mongoose
 
 Authentication: JWT (JSON Web Tokens).
 
-Real-Time: Socket.io
+Real-Time: Socket.IO
+
+Chat API
+
+- `GET /api/chats` lists the current user's conversations.
+- `GET /api/chats/:userId/messages` loads a conversation's message history.
+- `POST /api/chats/:userId/messages` sends a message through the protected HTTP API.
+- Socket.IO `send_message` and `new_message` events provide live delivery.

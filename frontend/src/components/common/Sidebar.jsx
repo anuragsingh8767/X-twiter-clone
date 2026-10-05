@@ -2,6 +2,7 @@ import XSvg from "../svgs/X";
 
 import { MdHomeFilled } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
+import { IoChatbubbleEllipses } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
@@ -35,45 +36,68 @@ const Sidebar = () => {
 	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
 
 	return (
-		<div className='md:flex-[2_2_0] w-18 max-w-52'>
-			<div className='sticky top-0 left-0 h-screen flex flex-col border-r border-gray-700 w-20 md:w-full'>
-				<Link to='/' className='flex justify-center md:justify-start'>
+		<div className='fixed bottom-0 inset-x-0 z-50 w-full bg-black md:static md:flex-[2_2_0] md:w-20 md:max-w-52'>
+			<div className='flex h-16 w-full items-center justify-around border-t border-gray-700 md:sticky md:top-0 md:left-0 md:h-screen md:flex-col md:items-stretch md:justify-start md:border-t-0 md:border-r md:w-full'>
+				<Link to='/' aria-label='Home' className='hidden justify-center md:flex md:justify-start'>
 					<XSvg className='px-2 w-12 h-12 rounded-full fill-white hover:bg-stone-900' />
 				</Link>
-				<ul className='flex flex-col gap-3 mt-4'>
+				<ul className='flex w-full items-center justify-around gap-0 md:mt-4 md:flex-col md:items-stretch md:gap-3'>
+					<li className='flex justify-center md:justify-start'>
+						<Link
+							to='/messages'
+							aria-label='Messages'
+							className='flex max-w-fit cursor-pointer items-center gap-3 rounded-full p-2 transition-all duration-300 hover:bg-stone-900 md:py-2 md:pl-2 md:pr-4'
+						>
+							<IoChatbubbleEllipses className='w-6 h-6' />
+							<span className='hidden text-lg md:block'>Messages</span>
+						</Link>
+					</li>
 					<li className='flex justify-center md:justify-start'>
 						<Link
 							to='/'
-							className='flex gap-3 items-center hover:bg-stone-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
+							aria-label='Home'
+							className='flex max-w-fit cursor-pointer items-center gap-3 rounded-full p-2 transition-all duration-300 hover:bg-stone-900 md:py-2 md:pl-2 md:pr-4'
 						>
 							<MdHomeFilled className='w-8 h-8' />
-							<span className='text-lg hidden md:block'>Home</span>
+							<span className='hidden text-lg md:block'>Home</span>
 						</Link>
 					</li>
 					<li className='flex justify-center md:justify-start'>
 						<Link
 							to='/notifications'
-							className='flex gap-3 items-center hover:bg-stone-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
+							aria-label='Notifications'
+							className='flex max-w-fit cursor-pointer items-center gap-3 rounded-full p-2 transition-all duration-300 hover:bg-stone-900 md:py-2 md:pl-2 md:pr-4'
 						>
 							<IoNotifications className='w-6 h-6' />
-							<span className='text-lg hidden md:block'>Notifications</span>
+							<span className='hidden text-lg md:block'>Notifications</span>
 						</Link>
 					</li>
 
 					<li className='flex justify-center md:justify-start'>
 						<Link
 							to={`/profile/${authUser?.username}`}
-							className='flex gap-3 items-center hover:bg-stone-900 transition-all rounded-full duration-300 py-2 pl-2 pr-4 max-w-fit cursor-pointer'
+							aria-label='Profile'
+							className='flex max-w-fit cursor-pointer items-center gap-3 rounded-full p-2 transition-all duration-300 hover:bg-stone-900 md:py-2 md:pl-2 md:pr-4'
 						>
 							<FaUser className='w-6 h-6' />
-							<span className='text-lg hidden md:block'>Profile</span>
+							<span className='hidden text-lg md:block'>Profile</span>
 						</Link>
+					</li>
+					<li className='flex justify-center md:hidden'>
+						<button
+							type='button'
+							aria-label='Log out'
+							className='rounded-full p-2 hover:bg-stone-900'
+							onClick={() => logout()}
+						>
+							<BiLogOut className='h-6 w-6' />
+						</button>
 					</li>
 				</ul>
 				{authUser && (
 					<Link
 						to={`/profile/${authUser.username}`}
-						className='mt-auto mb-10 flex gap-2 items-start transition-all duration-300 hover:bg-[#181818] py-2 px-4 rounded-full'
+						className='mt-auto mb-10 hidden items-start gap-2 rounded-full px-4 py-2 transition-all duration-300 hover:bg-[#181818] md:flex'
 					>
 						<div className='avatar hidden md:inline-flex'>
 							<div className='w-8 rounded-full'>

@@ -49,7 +49,7 @@ const NotificationPage = () => {
 
 	return (
 		<>
-			<div className='flex-[4_4_0] border-l border-r border-gray-700 min-h-screen'>
+			<div className='min-w-0 w-full flex-[4_4_0] h-[100dvh] overflow-y-auto border-r border-gray-700 pb-16 md:h-auto md:min-h-screen md:overflow-visible md:pb-0'>
 				<div className='flex justify-between items-center p-4 border-b border-gray-700'>
 					<p className='font-bold'>Notifications</p>
 					<div className='dropdown '>
@@ -74,16 +74,16 @@ const NotificationPage = () => {
 				{notifications?.length === 0 && <div className='text-center p-4 font-bold'>No notifications 🤔</div>}
 				{notifications?.map((notification) => (
 					<div className='border-b border-gray-700' key={notification._id}>
-						<div className='flex gap-2 p-4'>
+						<div className='flex min-w-0 gap-2 p-4'>
 							{notification.type === "follow" && <FaUser className='w-7 h-7 text-primary' />}
 							{notification.type === "like" && <FaHeart className='w-7 h-7 text-red-500' />}
-							<Link to={`/profile/${notification.from.username}`}>
+							<Link to={`/profile/${notification.from.username}`} className='flex min-w-0 items-center gap-2'>
 								<div className='avatar'>
 									<div className='w-8 rounded-full'>
 										<img src={notification.from.profileImg || "/avatar-placeholder.png"} />
 									</div>
 								</div>
-								<div className='flex gap-1'>
+								<div className='flex min-w-0 flex-wrap gap-1'>
 									<span className='font-bold'>@{notification.from.username}</span>{" "}
 									{notification.type === "follow" ? "followed you" : "liked your post"}
 								</div>

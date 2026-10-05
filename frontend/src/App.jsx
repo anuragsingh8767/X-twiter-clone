@@ -5,6 +5,7 @@ import LoginPage from "./pages/auth/login/LoginPage";
 import SignUpPage from "./pages/auth/signup/SignUpPage";
 import NotificationPage from "./pages/notification/NotificationPage";
 import ProfilePage from "./pages/profile/ProfilePage";
+import ChatPage from "./pages/chat/ChatPage";
 
 import Sidebar from "./components/common/Sidebar";
 import RightPanel from "./components/common/RightPanel";
@@ -43,7 +44,7 @@ function App() {
 	}
 
 	return (
-		<div className='flex max-w-6xl mx-auto'>
+		<div className='flex min-h-screen w-full max-w-6xl mx-auto'>
 			{/* Common component, bc it's not wrapped with Routes */}
 			{authUser && <Sidebar />}
 			<Routes>
@@ -51,6 +52,8 @@ function App() {
 				<Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
 				<Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />} />
 				<Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
+				<Route path='/messages' element={authUser ? <ChatPage /> : <Navigate to='/login' />} />
+				<Route path='/messages/:username' element={authUser ? <ChatPage /> : <Navigate to='/login' />} />
 				<Route path='/profile/:username' element={authUser ? <ProfilePage /> : <Navigate to='/login' />} />
 			</Routes>
 			{authUser && <RightPanel />}
